@@ -51,12 +51,21 @@
 			<Label Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding SelectedFolder.FamilyName}"></Label>
 			<Label Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding SelectedFolder.Sex}"></Label>
 			<Label Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding SelectedFolder.Age}"></Label>
-			<Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Content="reset" x:Name="ButtonReset" Click="ButtonReset_Click"></Button>
+			<Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Content="reset" x:Name="ButtonReset" Command="{Binding ResetSelectedFolder}" CommandParameter="{Binding SelectedFolder}"></Button>
 			<Rectangle Grid.Column="3" Fill="Black" HorizontalAlignment="Left" Height="349" Margin="116,0,0,-1" Grid.RowSpan="6" Stroke="Black" VerticalAlignment="Top" Width="4"/>
-			<ListBox Grid.Row="1" Grid.Column="4" Grid.RowSpan="5" ItemsSource="{Binding Folders}"></ListBox>
-			<Button Grid.Row="1" Grid.Column="5" Content="add" x:Name="ButtonAdd" Click="ButtonAdd_Click"></Button>
-			<Button Grid.Row="2" Grid.Column="5" Content="remove" x:Name="ButtonRemove" Click="ButtonRemove_Click"></Button>
-			<Button Grid.Row="3" Grid.Column="5" Content="edit" x:Name="ButtonEdit" Click="ButtonEdit_Click"></Button>
+			<ListBox x:Name="ListOfFolders" Grid.Row="1" Grid.Column="4" Grid.RowSpan="5" ItemsSource="{Binding Folders}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<Label Content="{Binding Name}"></Label>
+							<Label Content="{Binding FamilyName}"></Label>
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+			<Button Grid.Row="1" Grid.Column="5" Content="add" x:Name="ButtonAdd" Command="{Binding AddFolder}"></Button>
+			<Button Grid.Row="2" Grid.Column="5" Content="remove" x:Name="ButtonRemove" Command="{Binding RemoveSelectedFolder}" CommandParameter="{Binding ElementName=ListOfFolders, Path=SelectedItem}"></Button>
+			<Button Grid.Row="3" Grid.Column="5" Content="edit" x:Name="ButtonEdit" Command="{Binding ModifySelectedFolder}" CommandParameter="{Binding ElementName=ListOfFolders, Path=SelectedItem}"></Button>
 		</Grid>
 	</StackPanel>
 </Window>

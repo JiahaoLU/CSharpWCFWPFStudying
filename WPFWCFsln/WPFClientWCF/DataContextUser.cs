@@ -68,5 +68,12 @@ namespace WPFClientWCF
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
+		public DataContextUser()
+		{
+			this.age = 0;
+			this.familyName = "default";
+			this.name = "default";
+			this.sex = "default";
+		}
 	}
 }

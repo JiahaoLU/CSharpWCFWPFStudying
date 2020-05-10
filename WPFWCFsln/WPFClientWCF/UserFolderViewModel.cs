@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace WPFClientWCF
 {
@@ -60,6 +61,62 @@ namespace WPFClientWCF
 			};
 
 			Folders.Add(SelectedFolder);
+		}
+
+		private ICommand resetSelectedFolder = new RelayCommand<DataContextUser>((user) => 
+		{
+			user.Age = 0;
+			user.Sex = "";
+			user.Name = "";
+			user.FamilyName = "";
+		});
+
+		public ICommand ResetSelectedFolder
+		{
+			get { return resetSelectedFolder; }
+		}
+
+		private ICommand addFolder;
+
+		public ICommand AddFolder
+		{
+			get 
+			{
+				if (addFolder == null)
+				{
+					addFolder = new RelayCommand<object>((obj) => { Folders.Add(new DataContextUser()); });
+				}
+				return addFolder; }
+		}
+
+		private ICommand modifySelectedFolder;
+
+		public ICommand ModifySelectedFolder
+		{
+			get 
+			{
+				if (modifySelectedFolder == null)
+				{
+					modifySelectedFolder = new RelayCommand<DataContextUser>((user) =>
+					{
+						SelectedFolder = user;
+					});
+				}
+				return modifySelectedFolder;
+			}
+		}
+		private ICommand removeSelectedFolder;
+
+		public ICommand RemoveSelectedFolder
+		{
+			get
+			{
+				if (removeSelectedFolder == null)
+				{
+					removeSelectedFolder = new RelayCommand<DataContextUser>((user) => Folders.Remove(user));
+				}
+				return removeSelectedFolder;
+			}
 		}
 
 	}

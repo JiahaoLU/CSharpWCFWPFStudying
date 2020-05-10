@@ -50,32 +50,6 @@ namespace WPFClientWCF
 			Event1(DateTime.Now.Minute.ToString());
 		}
 
-		private void ButtonReset_Click(object sender, RoutedEventArgs e)
-		{
-			var usr = this.DataContext as DataContextUser;
-
-			usr.Age = 0;
-			usr.FamilyName = "";
-			usr.Name = "";
-			usr.Sex = "";
-
-		}
-
-		private void ButtonAdd_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void ButtonRemove_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void ButtonEdit_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
-
 		//private void ChangeLabelContent(string str)
 		//{
 		//	Label1.Content = str;
