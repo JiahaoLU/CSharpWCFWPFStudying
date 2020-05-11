@@ -3,7 +3,7 @@
 * Latest classes overwrites previous contents in ServiceWCF and WPFClientWCF
 * Console projects only has partial contents of first classes
 
-##Prerequirements
+## Prerequirements
 * Object Oriented and basic programming knowledges
 * Generic type
 * Delegate and Event
