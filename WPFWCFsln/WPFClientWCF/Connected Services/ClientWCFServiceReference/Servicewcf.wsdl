@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Servicewcf" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:1258/Servicewcf.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:1258/Servicewcf.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:1258/Servicewcf.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ServiceWCF" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IClientFolderService_GetFolders_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFolders" />
+  </wsdl:message>
+  <wsdl:message name="IClientFolderService_GetFolders_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFoldersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientFolderService_GetMaleFolders_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMaleFolders" />
+  </wsdl:message>
+  <wsdl:message name="IClientFolderService_GetMaleFolders_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMaleFoldersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientFolderService_AddClientFolder_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddClientFolder" />
+  </wsdl:message>
+  <wsdl:message name="IClientFolderService_AddClientFolder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddClientFolderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientFolderService_ModifyClientFolder_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyClientFolder" />
+  </wsdl:message>
+  <wsdl:message name="IClientFolderService_ModifyClientFolder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyClientFolderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientFolderService_DeleteClientFolder_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteClientFolder" />
+  </wsdl:message>
+  <wsdl:message name="IClientFolderService_DeleteClientFolder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteClientFolderResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IClientFolderService">
+    <wsdl:operation name="GetFolders">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientFolderService/GetFolders" message="tns:IClientFolderService_GetFolders_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientFolderService/GetFoldersResponse" message="tns:IClientFolderService_GetFolders_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMaleFolders">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientFolderService/GetMaleFolders" message="tns:IClientFolderService_GetMaleFolders_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientFolderService/GetMaleFoldersResponse" message="tns:IClientFolderService_GetMaleFolders_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddClientFolder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientFolderService/AddClientFolder" message="tns:IClientFolderService_AddClientFolder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientFolderService/AddClientFolderResponse" message="tns:IClientFolderService_AddClientFolder_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyClientFolder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientFolderService/ModifyClientFolder" message="tns:IClientFolderService_ModifyClientFolder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientFolderService/ModifyClientFolderResponse" message="tns:IClientFolderService_ModifyClientFolder_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteClientFolder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientFolderService/DeleteClientFolder" message="tns:IClientFolderService_DeleteClientFolder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientFolderService/DeleteClientFolderResponse" message="tns:IClientFolderService_DeleteClientFolder_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IClientFolderService" type="tns:IClientFolderService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFolders">
+      <soap:operation soapAction="http://tempuri.org/IClientFolderService/GetFolders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMaleFolders">
+      <soap:operation soapAction="http://tempuri.org/IClientFolderService/GetMaleFolders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddClientFolder">
+      <soap:operation soapAction="http://tempuri.org/IClientFolderService/AddClientFolder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyClientFolder">
+      <soap:operation soapAction="http://tempuri.org/IClientFolderService/ModifyClientFolder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteClientFolder">
+      <soap:operation soapAction="http://tempuri.org/IClientFolderService/DeleteClientFolder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Servicewcf">
+    <wsdl:port name="BasicHttpBinding_IClientFolderService" binding="tns:BasicHttpBinding_IClientFolderService">
+      <soap:address location="http://localhost:1258/Servicewcf.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

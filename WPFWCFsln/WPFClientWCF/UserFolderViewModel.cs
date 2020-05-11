@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WPFClientWCF.ClientWCFServiceReference;
 
 namespace WPFClientWCF
 {
@@ -19,9 +20,9 @@ namespace WPFClientWCF
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(str));
 		}
 
-		private ObservableCollection<DataContextUser> folders;
+		private ObservableCollection<ClientWCFServiceReference.ClientFolder> folders;
 
-		public ObservableCollection<DataContextUser> Folders
+		public ObservableCollection<ClientFolder> Folders
 		{
 			get { return folders; }
 			set 
@@ -34,9 +35,9 @@ namespace WPFClientWCF
 			}
 		}
 
-		private DataContextUser selectedFolder;
+		private ClientFolder selectedFolder;
 
-		public DataContextUser SelectedFolder
+		public ClientFolder SelectedFolder
 		{
 			get { return selectedFolder; }
 			set
@@ -48,33 +49,63 @@ namespace WPFClientWCF
 				}
 			}
 		}
+		private ClientFolder hangedOnFolder;
+
+		public ClientFolder HangedOnFolder
+		{
+			get { return hangedOnFolder; }
+			set
+			{
+				if (hangedOnFolder != value)
+				{
+					hangedOnFolder = value;
+					NotifyPropertyChanged();
+				}
+			}
+		}
 
 		public UserFolderViewModel()
 		{
-			Folders = new ObservableCollection<DataContextUser>();
-			SelectedFolder = new DataContextUser()
-			{
-				Name = "John",
-				FamilyName = "Paul",
-				Sex = "Male",
-				Age = 33
-			};
-
-			Folders.Add(SelectedFolder);
+			var connecter = new ClientFolderServiceClient();
+			Folders = new ObservableCollection<ClientFolder>(connecter.GetFolders());
+			connecter.Close();
 		}
 
-		private ICommand resetSelectedFolder = new RelayCommand<DataContextUser>((user) => 
+		private ICommand resetSelectedFolder = new RelayCommand<ClientFolder>((folder) => 
 		{
-			user.Age = 0;
-			user.Sex = "";
-			user.Name = "";
-			user.FamilyName = "";
+			folder.Age = 0;
+			folder.Sex = "";
+			folder.Name = "";
+			folder.FamilyName = "";
 		});
-
 		public ICommand ResetSelectedFolder
 		{
 			get { return resetSelectedFolder; }
 		}
+
+		ICommand chooseSelectedFolder;
+		public ICommand ChooseSelectedFolder
+		{
+			get
+			{
+				if (chooseSelectedFolder == null)
+				{
+					chooseSelectedFolder = new RelayCommand<ClientFolder>((folder) =>
+					{
+						HangedOnFolder = new ClientFolder()
+						{
+							Name = folder.Name,
+							FamilyName = folder.FamilyName,
+							Sex = folder.Sex,
+							Age = folder.Age
+						};
+						SelectedFolder = folder;
+					});
+				}
+				return chooseSelectedFolder;
+			}
+		}
+
 
 		private ICommand addFolder;
 
@@ -84,7 +115,15 @@ namespace WPFClientWCF
 			{
 				if (addFolder == null)
 				{
-					addFolder = new RelayCommand<object>((obj) => { Folders.Add(new DataContextUser()); });
+					addFolder = new RelayCommand<object>((obj) => 
+					{
+						var connecter = new ClientFolderServiceClient();
+						if (connecter.AddClientFolder())
+						{
+							Folders = new ObservableCollection<ClientFolder>(connecter.GetFolders());
+						}
+						connecter.Close();
+					});
 				}
 				return addFolder; }
 		}
@@ -97,9 +136,14 @@ namespace WPFClientWCF
 			{
 				if (modifySelectedFolder == null)
 				{
-					modifySelectedFolder = new RelayCommand<DataContextUser>((user) =>
+					modifySelectedFolder = new RelayCommand<ClientFolder>((folder) =>
 					{
-						SelectedFolder = user;
+						var connecter = new ClientFolderServiceClient();
+						if (connecter.ModifyClientFolder(SelectedFolder, folder))
+						{
+							Folders = new ObservableCollection<ClientFolder>(connecter.GetFolders());
+						}
+						connecter.Close();
 					});
 				}
 				return modifySelectedFolder;
@@ -113,7 +157,15 @@ namespace WPFClientWCF
 			{
 				if (removeSelectedFolder == null)
 				{
-					removeSelectedFolder = new RelayCommand<DataContextUser>((user) => Folders.Remove(user));
+					removeSelectedFolder = new RelayCommand<ClientFolder>((folder) =>
+					{
+						var connecter = new ClientFolderServiceClient();
+						if (connecter.DeleteClientFolder(folder))
+						{
+							Folders = new ObservableCollection<ClientFolder>(connecter.GetFolders());
+						}
+						connecter.Close();
+					});
 				}
 				return removeSelectedFolder;
 			}

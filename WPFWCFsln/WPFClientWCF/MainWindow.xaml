@@ -42,16 +42,17 @@
 			<Label Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">Family Name</Label>
 			<Label Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">Sex</Label>
 			<Label Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">Age</Label>
-			<TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" x:Name="NameTextBox" Text="{Binding SelectedFolder.Name, Mode=TwoWay}"></TextBox>
-			<TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" x:Name="FamilyNameTextBox" Text="{Binding SelectedFolder.FamilyName, Mode=TwoWay}"></TextBox>
-			<TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" x:Name="SexTextBox" Text="{Binding SelectedFolder.Sex, Mode=TwoWay}"></TextBox>
-			<TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" x:Name="AgeTextBox" Text="{Binding SelectedFolder.Age, Mode=TwoWay}"></TextBox>
+			<TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" x:Name="NameTextBox" Text="{Binding HangedOnFolder.Name, Mode=TwoWay}"></TextBox>
+			<TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" x:Name="FamilyNameTextBox" Text="{Binding HangedOnFolder.FamilyName, Mode=TwoWay}"></TextBox>
+			<TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" x:Name="SexTextBox" Text="{Binding HangedOnFolder.Sex, Mode=TwoWay}"></TextBox>
+			<TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" x:Name="AgeTextBox" Text="{Binding HangedOnFolder.Age, Mode=TwoWay}"></TextBox>
 			<Rectangle Grid.Column="2" Fill="Black" HorizontalAlignment="Left" Height="349" Margin="0,-1,0,0" Grid.RowSpan="6" Stroke="Black" VerticalAlignment="Top" Width="4"/>
 			<Label Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding SelectedFolder.Name}"></Label>
 			<Label Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding SelectedFolder.FamilyName}"></Label>
 			<Label Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding SelectedFolder.Sex}"></Label>
 			<Label Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding SelectedFolder.Age}"></Label>
-			<Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Content="reset" x:Name="ButtonReset" Command="{Binding ResetSelectedFolder}" CommandParameter="{Binding SelectedFolder}"></Button>
+			<Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="reset" x:Name="ButtonReset" Command="{Binding ResetSelectedFolder}" CommandParameter="{Binding HangedOnFolder}"></Button>
+			<Button Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Content="Save" x:Name="ButtonSave" Command="{Binding ModifySelectedFolder}" CommandParameter="{Binding HangedOnFolder}"></Button>
 			<Rectangle Grid.Column="3" Fill="Black" HorizontalAlignment="Left" Height="349" Margin="116,0,0,-1" Grid.RowSpan="6" Stroke="Black" VerticalAlignment="Top" Width="4"/>
 			<ListBox x:Name="ListOfFolders" Grid.Row="1" Grid.Column="4" Grid.RowSpan="5" ItemsSource="{Binding Folders}">
 				<ListBox.ItemTemplate>
@@ -65,7 +66,7 @@
 			</ListBox>
 			<Button Grid.Row="1" Grid.Column="5" Content="add" x:Name="ButtonAdd" Command="{Binding AddFolder}"></Button>
 			<Button Grid.Row="2" Grid.Column="5" Content="remove" x:Name="ButtonRemove" Command="{Binding RemoveSelectedFolder}" CommandParameter="{Binding ElementName=ListOfFolders, Path=SelectedItem}"></Button>
-			<Button Grid.Row="3" Grid.Column="5" Content="edit" x:Name="ButtonEdit" Command="{Binding ModifySelectedFolder}" CommandParameter="{Binding ElementName=ListOfFolders, Path=SelectedItem}"></Button>
+			<Button Grid.Row="3" Grid.Column="5" Content="choose" x:Name="ButtonChoose" Command="{Binding ChooseSelectedFolder}" CommandParameter="{Binding ElementName=ListOfFolders, Path=SelectedItem}"></Button>
 		</Grid>
 	</StackPanel>
 </Window>
